@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FreeMax_File_Manager.Properties.UserSettings.Colors" GeneratedClassName="AdditionalWindowColors">
+  <Profiles />
+  <Settings>
+    <Setting Name="Фон" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF3C3C3C</Value>
+    </Setting>
+    <Setting Name="Заголовок" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
+    </Setting>
+    <Setting Name="Текст" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
+    </Setting>
+    <Setting Name="Фон_текста" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFFFFFFF</Value>
+    </Setting>
+    <Setting Name="Фон_кнопки" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFFFFFFF</Value>
+    </Setting>
+    <Setting Name="Текст_кнопки" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

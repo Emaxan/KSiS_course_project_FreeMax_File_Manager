@@ -1,0 +1,108 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FreeMax_File_Manager.Properties.UserSettings.Text.SettingsWindow" GeneratedClassName="ColorSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Window1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Главное окно</Value>
+    </Setting>
+    <Setting Name="Window2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Окно настроек</Value>
+    </Setting>
+    <Setting Name="MW1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Текст</Value>
+    </Setting>
+    <Setting Name="MW2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Нажатые_клавиши</Value>
+    </Setting>
+    <Setting Name="MW3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ненажатые_клавиши</Value>
+    </Setting>
+    <Setting Name="MW4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон</Value>
+    </Setting>
+    <Setting Name="SW1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон</Value>
+    </Setting>
+    <Setting Name="SW2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Заголовок</Value>
+    </Setting>
+    <Setting Name="SW3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон_активного_меню</Value>
+    </Setting>
+    <Setting Name="MainColorCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">12</Value>
+    </Setting>
+    <Setting Name="SettingsColorCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">9</Value>
+    </Setting>
+    <Setting Name="WindowCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="Window3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Дополнительные окна</Value>
+    </Setting>
+    <Setting Name="AW1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон</Value>
+    </Setting>
+    <Setting Name="AW2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Текст</Value>
+    </Setting>
+    <Setting Name="AdditionalColorCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">6</Value>
+    </Setting>
+    <Setting Name="MW5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон_левого_окна</Value>
+    </Setting>
+    <Setting Name="MW6" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон_правого_окна</Value>
+    </Setting>
+    <Setting Name="MW7" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Текст_правого_окна</Value>
+    </Setting>
+    <Setting Name="MW8" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Тескт_левого_окна</Value>
+    </Setting>
+    <Setting Name="MW9" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон_выделенного_элемента</Value>
+    </Setting>
+    <Setting Name="MW10" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Граница_выделенного_элемента</Value>
+    </Setting>
+    <Setting Name="SW4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон_активного_подменю</Value>
+    </Setting>
+    <Setting Name="SW5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Рамка</Value>
+    </Setting>
+    <Setting Name="AW3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Заголовок</Value>
+    </Setting>
+    <Setting Name="AW4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон_текста</Value>
+    </Setting>
+    <Setting Name="AW5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон_кнопки</Value>
+    </Setting>
+    <Setting Name="AW6" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Текст_кнопки</Value>
+    </Setting>
+    <Setting Name="SW6" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Текст</Value>
+    </Setting>
+    <Setting Name="SW7" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Активный_цветовой_канал</Value>
+    </Setting>
+    <Setting Name="SW8" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон_кнопок</Value>
+    </Setting>
+    <Setting Name="SW9" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Текст_кнопок</Value>
+    </Setting>
+    <Setting Name="MW11" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Фон_слайдера</Value>
+    </Setting>
+    <Setting Name="MW12" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ползунок_сдайдера</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

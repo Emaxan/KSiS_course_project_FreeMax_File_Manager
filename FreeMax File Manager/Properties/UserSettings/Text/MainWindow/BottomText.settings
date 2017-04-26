@@ -1,0 +1,44 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FreeMax_File_Manager.Properties.UserSettings.Text.MainWindow" GeneratedClassName="BottomText">
+  <Profiles />
+  <Settings>
+    <Setting Name="Text1" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Text2" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Text3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F3
+Создать папку</Value>
+    </Setting>
+    <Setting Name="Text4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F4
+Создать файл</Value>
+    </Setting>
+    <Setting Name="Text5" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F5
+Переименовать</Value>
+    </Setting>
+    <Setting Name="Text6" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F6
+Копировать</Value>
+    </Setting>
+    <Setting Name="Text7" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F7
+Переместить</Value>
+    </Setting>
+    <Setting Name="Text8" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F8
+Удалить</Value>
+    </Setting>
+    <Setting Name="Text9" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F9
+Настройки</Value>
+    </Setting>
+    <Setting Name="Text0" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F10
+Выход</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

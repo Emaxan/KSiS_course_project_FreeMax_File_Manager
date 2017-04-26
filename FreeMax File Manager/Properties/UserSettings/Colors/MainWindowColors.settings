@@ -1,0 +1,42 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FreeMax_File_Manager.Properties.UserSettings.Colors" GeneratedClassName="MainWindowColors">
+  <Profiles />
+  <Settings>
+    <Setting Name="Фон" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF3C3C3C</Value>
+    </Setting>
+    <Setting Name="Текст" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
+    </Setting>
+    <Setting Name="Нажатые_клавиши" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFFF0000</Value>
+    </Setting>
+    <Setting Name="Ненажатые_клавиши" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
+    </Setting>
+    <Setting Name="Фон_левого_окна" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF3C3C3C</Value>
+    </Setting>
+    <Setting Name="Фон_правого_окна" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF3C3C3C</Value>
+    </Setting>
+    <Setting Name="Текст_правого_окна" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
+    </Setting>
+    <Setting Name="Тескт_левого_окна" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
+    </Setting>
+    <Setting Name="Фон_выделенного_элемента" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF8C8C8C</Value>
+    </Setting>
+    <Setting Name="Граница_выделенного_элемента" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF3C3C3C</Value>
+    </Setting>
+    <Setting Name="Фон_слайдера" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#60CDCDCD</Value>
+    </Setting>
+    <Setting Name="Ползунок_сдайдера" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#60CDCDCD</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

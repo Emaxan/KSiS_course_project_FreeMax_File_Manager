@@ -1,0 +1,70 @@
+﻿<Window x:Class="FreeMax_File_Manager.Windows.AdditionalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:awf="clr-namespace:FreeMax_File_Manager.Properties.UserSettings.Text.AdditionalWindow"
+        xmlns:awc="clr-namespace:FreeMax_File_Manager.Properties.UserSettings.Colors"
+        Title="AdditionalWindow"  
+        MinWidth="900"
+        Style="{DynamicResource AdditionalWindow}"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight"
+        KeyUp="OnKeyUp"
+        Closed="AdditionalWindow_OnClosed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="TbTitle" Grid.Row="0" Style="{DynamicResource AdditionalWindowTitleStyle}"/>
+        <TextBlock x:Name="TbText" Grid.Row="1" Style="{DynamicResource AdditionalWindowTextBlockStyle}"/>
+        <ListBox Grid.Row="2" x:Name="LbAttributes"
+                 GotFocus="LbAttributes_OnGotFocus"
+                 LostFocus="LbAttributes_OnLostFocus"
+                 FocusVisualStyle="{StaticResource FocusVisualInvis}"
+                 BorderThickness="0"
+                 Visibility="Collapsed" 
+                 HorizontalContentAlignment="Stretch" 
+                 VerticalContentAlignment="Stretch" 
+                 HorizontalAlignment="Center" 
+                 VerticalAlignment="Center"
+                 FontSize="20"
+                 FontFamily="{Binding Source={x:Static awf:Fonts.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Foreground="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Background="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Фон_текста, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <CheckBox Background="Transparent" FocusVisualStyle="{StaticResource FocusVisualInvis}" Content="System" IsChecked="False" Foreground="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <CheckBox Background="Transparent" FocusVisualStyle="{StaticResource FocusVisualInvis}" Content="Temporary" IsChecked="False" Foreground="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <CheckBox Background="Transparent" FocusVisualStyle="{StaticResource FocusVisualInvis}" Content="Hidden" IsChecked="False" Foreground="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </ListBox>
+        <Grid Grid.Row="2" x:Name="LbDrives"
+                 GotFocus="LbDrives_OnGotFocus"
+                 LostFocus="LbDrives_OnLostFocus"
+                 FocusVisualStyle="{StaticResource FocusVisualInvis}"
+                 Visibility="Collapsed" 
+                 HorizontalAlignment="Center" 
+                 VerticalAlignment="Center"
+                 Background="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Фон_текста, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        </Grid>
+        <TextBox Grid.Row="2" x:Name="TbNewElem" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Margin="10" Padding="10" FontSize="20"
+                 Foreground="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Background="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Фон_текста, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 FontFamily="{Binding Source={x:Static awf:Fonts.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="2" x:Name="TbRename" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Margin="10" Padding="10" FontSize="20"
+                 Foreground="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Background="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Фон_текста, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 FontFamily="{Binding Source={x:Static awf:Fonts.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="BOk" Grid.Column="0" Text="Хорошо(Ctrl+O|Enter)" Style="{DynamicResource AdditionalWindowButtonStyle}"/>
+            <TextBlock x:Name="BYes" Grid.Column="1" Text="Да(Ctrl+Y|Enter)" Style="{DynamicResource AdditionalWindowButtonStyle}"/>
+            <TextBlock x:Name="BNo" Grid.Column="2" Text="Нет(Ctrl+N|Esc)" Style="{DynamicResource AdditionalWindowButtonStyle}"/>
+            <TextBlock x:Name="BCancel" Grid.Column="3" Text="Отмена(Ctrl+C|Esc)" Style="{DynamicResource AdditionalWindowButtonStyle}"/>
+        </Grid>
+    </Grid>
+</Window>

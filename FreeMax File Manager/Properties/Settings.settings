@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FreeMax_File_Manager.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="RightAttributes" Type="System.IO.FileAttributes" Scope="User">
+      <Value Profile="(Default)">Directory, Archive, Compressed</Value>
+    </Setting>
+    <Setting Name="LeftAttributes" Type="System.IO.FileAttributes" Scope="User">
+      <Value Profile="(Default)">Directory, Archive, Compressed</Value>
+    </Setting>
+    <Setting Name="NegRigthAttributes" Type="System.IO.FileAttributes" Scope="User">
+      <Value Profile="(Default)">Hidden, System, Temporary</Value>
+    </Setting>
+    <Setting Name="NegLeftAttributes" Type="System.IO.FileAttributes" Scope="User">
+      <Value Profile="(Default)">Hidden, System, Temporary</Value>
+    </Setting>
+    <Setting Name="CurLeftFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\</Value>
+    </Setting>
+    <Setting Name="CurRightFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">E:\</Value>
+    </Setting>
+    <Setting Name="wSettingsTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Настройки</Value>
+    </Setting>
+    <Setting Name="wMainTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FreeMax File Manager</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

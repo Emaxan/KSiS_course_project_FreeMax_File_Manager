@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FreeMax_File_Manager.Properties.UserSettings.Text.AdditionalWindow" GeneratedClassName="Fonts">
+  <Profiles />
+  <Settings>
+    <Setting Name="Count" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="Заголовок" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\Properties\Resources\Font\Bankir-Retro.ttf#Bankir-Retro</Value>
+    </Setting>
+    <Setting Name="Текст" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\Properties\Resources\Font\Bankir-Retro.ttf#Bankir-Retro</Value>
+    </Setting>
+    <Setting Name="Кнопки" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\Properties\Resources\Font\Bankir-Retro.ttf#Bankir-Retro</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

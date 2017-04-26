@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FreeMax_File_Manager.Properties.UserSettings.Text.SettingsWindow" GeneratedClassName="BottomText">
+  <Profiles />
+  <Settings>
+    <Setting Name="SaveButton" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Сохранить - Ctrl+S</Value>
+    </Setting>
+    <Setting Name="CancelButton" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Выход - Esc</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FreeMax_File_Manager.Properties.UserSettings.Text.MainWindow" GeneratedClassName="FontsToRead">
+  <Profiles />
+  <Settings>
+    <Setting Name="T0" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Заголовок</Value>
+    </Setting>
+    <Setting Name="T1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Верхняя_панель</Value>
+    </Setting>
+    <Setting Name="T2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Средняя_правая_панель</Value>
+    </Setting>
+    <Setting Name="T3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Средняя_левая_панель</Value>
+    </Setting>
+    <Setting Name="T4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Нижняя_панель</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

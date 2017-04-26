@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FreeMax_File_Manager.Properties.UserSettings.Text.SettingsWindow" GeneratedClassName="TopText">
+  <Profiles />
+  <Settings>
+    <Setting Name="Text1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Цвет</Value>
+    </Setting>
+    <Setting Name="Text2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Шрифт</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

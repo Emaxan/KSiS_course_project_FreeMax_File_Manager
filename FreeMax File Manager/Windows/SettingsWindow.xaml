@@ -1,0 +1,101 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:FreeMax_File_Manager.Properties.UserSettings.Text.SettingsWindow"
+        xmlns:prop="clr-namespace:FreeMax_File_Manager.Properties"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:colors="clr-namespace:FreeMax_File_Manager.Properties.UserSettings.Colors"
+        mc:Ignorable="d" 
+        x:Class="FreeMax_File_Manager.Windows.SettingsWindow"
+        x:Name="WSettings" 
+        ShowInTaskbar="False" 
+        Title="wSettings" 
+        Height="700" 
+        MinWidth="600" 
+        Style="{DynamicResource SettingsWindow}" 
+        WindowStartupLocation="CenterScreen" 
+        KeyUp="WSettings_KeyUp"
+        KeyDown="WSettings_KeyDown"
+        SizeChanged="SW_OnSizeChanged"
+        Activated="SW_OnActivated"
+        Deactivated="SW_OnDeactivated"
+        SizeToContent="Width">
+    
+    <Grid x:Name="GMain">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="76*"/>
+            <RowDefinition Height="12*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock x:Name="TbTitle" 
+            Grid.Row="0" 
+            Text="{ Binding Source={x:Static prop:Settings.Default}, 
+                    Path=wSettingsTitle, 
+                    Mode=OneWay, 
+                    UpdateSourceTrigger=PropertyChanged}" 
+            Style="{DynamicResource SettinsWindowTitleStyle}"/>
+        
+        <StackPanel x:Name="SpMenu" 
+            Grid.Row="1" 
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch" 
+            Orientation="Horizontal" 
+            Margin="10,0,10,0">
+            <TextBlock x:Name="TbMenu1" 
+                       Text="{  Binding Text1, 
+                                Mode=OneWay, 
+                                Source={x:Static p:TopText.Default}, 
+                                UpdateSourceTrigger=PropertyChanged}" 
+                       Style="{DynamicResource StackPanelElementsStyle}"/>
+            <TextBlock x:Name="TbMenu2" 
+                       Text="{  Binding Text2, 
+                                Mode=OneWay, 
+                                Source={x:Static p:TopText.Default}, 
+                                UpdateSourceTrigger=PropertyChanged}" 
+                       Style="{DynamicResource StackPanelElementsStyle}"/>
+        </StackPanel>
+
+        <ListBox 
+                Grid.Row="2"
+                IsTabStop="False"
+                Margin="9,-1,10,0"
+                x:Name="LbSetting" 
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                FocusVisualStyle="{StaticResource FocusVisualInvis}"
+                ItemContainerStyle="{StaticResource MyListBoxItemStyleSw}"
+                BorderBrush="{x:Null}"
+                Background="{   Binding Source={x:Static colors:SettingsWindowColors.Default}, 
+                                Path=Фон_активного_меню, 
+                                Mode=OneWay, 
+                                UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Grid x:Name="GBottom" 
+            Grid.Row="3" 
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="TbSave"   
+                       Grid.Column="0" 
+                       Style="{DynamicResource ButtonSettingsStyle}" 
+                       Text="{  Binding Source={x:Static p:BottomText.Default}, 
+                                Mode=OneWay, 
+                                Path=SaveButton, 
+                                UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock x:Name="TbCancel" 
+                       Grid.Column="1" 
+                       Style="{DynamicResource ButtonSettingsStyle}" 
+                       Text="{  Binding Source={x:Static p:BottomText.Default}, 
+                                Mode=OneWay, 
+                                Path=CancelButton, 
+                                UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,124 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:p="clr-namespace:FreeMax_File_Manager.Properties.UserSettings.Text.MainWindow"
+        xmlns:properties="clr-namespace:FreeMax_File_Manager.Properties"
+        xmlns:freeMaxFileManager="clr-namespace:FreeMax_File_Manager"
+        x:Name="WMain" 
+        mc:Ignorable="d" 
+        x:Class="FreeMax_File_Manager.Windows.MainWindow"
+        Title="FreeMax File Manager" 
+        Height="768" 
+        Width="1366"
+        WindowState="Maximized"
+        Icon="/Properties/Resources/Icon1.ico" 
+        Style="{DynamicResource MainWindow}" 
+        KeyUp="wMain_KeyUp"
+        KeyDown="wMain_KeyDown"
+		Activated="WMain_Activated" 
+        Deactivated="WMain_Deactivated">
+	<Window.Effect>
+        <BlurEffect KernelType="Gaussian" Radius="0"/>
+    </Window.Effect>
+    <Grid Margin="3,0,-3,0" d:IsLocked="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+		<TextBlock Grid.Row="0" Text="{Binding Source={x:Static properties:Settings.Default}, Path=wMainTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MainWindowTitleStyle}" d:IsLocked="True"/>
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsLocked="True" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsLocked="True" Margin="10,0,10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Style="{DynamicResource TopPanelPasiveStyle}" Text="{Binding Source={x:Static p:TopText.Default}, Path=Text1, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="1" Style="{DynamicResource TopPanelPasiveStyle}" Text="{Binding Source={x:Static p:TopText.Default}, Path=Text2, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="2" Style="{DynamicResource TopPanelPasiveStyle}" Text="{Binding Source={x:Static p:TopText.Default}, Path=Text3, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="3" Style="{DynamicResource TopPanelPasiveStyle}" Text="{Binding Source={x:Static p:TopText.Default}, Path=Text4, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="4" Style="{DynamicResource TopPanelPasiveStyle}" Text="{Binding Source={x:Static p:TopText.Default}, Path=Text5, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsLocked="True" Margin="10,0,10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Style="{DynamicResource TopPanelPasiveStyle}" Text="{Binding Source={x:Static p:TopText.Default}, Path=Text6, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="1" Style="{DynamicResource TopPanelPasiveStyle}" Text="{Binding Source={x:Static p:TopText.Default}, Path=Text7, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="2" Style="{DynamicResource TopPanelPasiveStyle}" Text="{Binding Source={x:Static p:TopText.Default}, Path=Text8, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="3" Style="{DynamicResource TopPanelPasiveStyle}" Text="{Binding Source={x:Static p:TopText.Default}, Path=Text9, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="4" Style="{DynamicResource TopPanelPasiveStyle}" Text="{Binding Source={x:Static p:TopText.Default}, Path=Text0, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsLocked="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+			<freeMaxFileManager:MyFolderView x:Name="LbLeftPanel" 
+				CurAttributes="{Binding Source={x:Static properties:Settings.Default}, Path=LeftAttributes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+				CurNegativeAttributes="{Binding Source={x:Static properties:Settings.Default}, Path=NegLeftAttributes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+				Path="{Binding Source={x:Static properties:Settings.Default}, Path=CurLeftFolder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+				FocusVisualStyle="{StaticResource FocusVisualInvis}" 
+				ItemContainerStyle="{StaticResource MyListBoxItemStyle}" 
+				Style="{DynamicResource MiddleLeftPanelStyle}" 
+				Template="{DynamicResource MiddlePanelTemplate}" 
+				Margin="10" Focusable="False" Padding="10" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended">
+				<d:MyFolderView.DataContext>
+					<freeMaxFileManager:MyFolderView />
+				</d:MyFolderView.DataContext>
+			</freeMaxFileManager:MyFolderView>
+			<freeMaxFileManager:MyFolderView x:Name="LbRightPanel"
+				CurAttributes="{Binding Source={x:Static properties:Settings.Default}, Path=RightAttributes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+				CurNegativeAttributes="{Binding Source={x:Static properties:Settings.Default}, Path=NegRigthAttributes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+				Path="{Binding Source={x:Static properties:Settings.Default}, Path=CurRightFolder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+				FocusVisualStyle="{StaticResource FocusVisualInvis}" 
+				ItemContainerStyle="{StaticResource MyListBoxItemStyle}" 
+				Style="{DynamicResource MiddleRigthPanelStyle}" 
+				Template="{DynamicResource MiddlePanelTemplate}" 
+				Margin="10" Focusable="False" Padding="10" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Extended">
+				<d:MyFolderView.DataContext>
+					<freeMaxFileManager:MyFolderView />
+				</d:MyFolderView.DataContext>
+			</freeMaxFileManager:MyFolderView>
+        </Grid>
+        <Grid Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsLocked="True" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+			<TextBlock Grid.Column="0" Style="{DynamicResource BottomPanelStyle}" Text="{Binding Source={x:Static p:BottomText.Default}, Path=Text1, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+			<TextBlock Grid.Column="1" Style="{DynamicResource BottomPanelStyle}" Text="{Binding Source={x:Static p:BottomText.Default}, Path=Text2, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="2" Style="{DynamicResource BottomPanelStyle}" Text="{Binding Source={x:Static p:BottomText.Default}, Path=Text3, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="3" Style="{DynamicResource BottomPanelStyle}" Text="{Binding Source={x:Static p:BottomText.Default}, Path=Text4, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="4" Style="{DynamicResource BottomPanelStyle}" Text="{Binding Source={x:Static p:BottomText.Default}, Path=Text5, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="5" Style="{DynamicResource BottomPanelStyle}" Text="{Binding Source={x:Static p:BottomText.Default}, Path=Text6, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="6" Style="{DynamicResource BottomPanelStyle}" Text="{Binding Source={x:Static p:BottomText.Default}, Path=Text7, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="7" Style="{DynamicResource BottomPanelStyle}" Text="{Binding Source={x:Static p:BottomText.Default}, Path=Text8, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="8" Style="{DynamicResource BottomPanelStyle}" Text="{Binding Source={x:Static p:BottomText.Default}, Path=Text9, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="9" Style="{DynamicResource BottomPanelStyle}" Text="{Binding Source={x:Static p:BottomText.Default}, Path=Text0, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+    </Grid>
+</Window>

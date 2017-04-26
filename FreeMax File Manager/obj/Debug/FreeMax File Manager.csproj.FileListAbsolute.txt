@@ -1,0 +1,77 @@
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\FreeMax File Manager.exe.config
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\FreeMax File Manager.exe
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\FreeMax File Manager.pdb
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\App.g.cs
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager_MarkupCompile.cache
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager.g.resources
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax_File_Manager.Properties.Resources.resources
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager.csproj.GenerateResource.Cache
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager.exe
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager.pdb
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\App.baml
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Properties\Styles\AdditionalStyle.baml
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Properties\Styles\WindowsStyle.baml
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager_MarkupCompile.lref
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager.csprojResolveAssemblyReference.cache
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Bankir-Retro.ttf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager_Content.g.cs
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\ACQUESTS.TTF
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\AdobeMyungjoStd-Medium.otf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\ADVENTUR.TTF
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Agatha-Modern.ttf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Alexandra Script.ttf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Corinthia.ttf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\CyrillicRevue Normal.Ttf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Deutsch Gothic.ttf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\MinionPro-Regular.otf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Moonlight.ttf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\segoesc.ttf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\segoeui.ttf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\times.ttf
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Icon1.ico
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Properties\Templays\AdditionalTemplayts.baml
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\SettingsWindow.g.cs
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\SettingsWindow.baml
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\MainWindow.g.cs
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\MainWindow.baml
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\AdditionalWindow.baml
+E:\Programs\VS\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\AdditionalWindow.g.cs
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\FreeMax File Manager.exe.config
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager.exe
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager.pdb
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\ACQUESTS.TTF
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\AdobeMyungjoStd-Medium.otf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\ADVENTUR.TTF
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Agatha-Modern.ttf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Alexandra Script.ttf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Bankir-Retro.ttf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Corinthia.ttf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\CyrillicRevue Normal.Ttf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Deutsch Gothic.ttf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\MinionPro-Regular.otf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\Moonlight.ttf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\segoesc.ttf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\segoeui.ttf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Font\times.ttf
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\Properties\Resources\Icon1.ico
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\FreeMax File Manager.exe
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\bin\Debug\FreeMax File Manager.pdb
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager.csprojResolveAssemblyReference.cache
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Properties\Templays\AdditionalTemplayts.baml
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\App.baml
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\AdditionalWindow.g.cs
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\MainWindow.g.cs
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\SettingsWindow.g.cs
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\App.g.cs
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager_Content.g.cs
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager_MarkupCompile.cache
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager_MarkupCompile.lref
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Properties\Styles\AdditionalStyle.baml
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Properties\Styles\WindowsStyle.baml
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\AdditionalWindow.baml
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\MainWindow.baml
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\Windows\SettingsWindow.baml
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager.g.resources
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax_File_Manager.Properties.Resources.resources
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\FreeMax File Manager.csproj.GenerateResource.Cache
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FreeMax File Manager\obj\Debug\GeneratedInternalTypeHelper.g.cs
