@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
 using FreeMax_File_Manager.Properties;
-//TODO Падает при наличии недопустимых знаков в названии
+
 namespace FreeMax_File_Manager.Windows {
 	/// <summary>
 	///     Логика взаимодействия для MainWindow.xaml
@@ -19,6 +19,10 @@ namespace FreeMax_File_Manager.Windows {
 			LbLeftPanel.IsActive = true;
 			LbLeftPanel.MySelectedItem = 0;
 			LbLeftPanel.Focus();
+			var t = LbLeftPanel.Path;
+			LbLeftPanel.Path = t;
+			t = LbRightPanel.Path;
+			LbRightPanel.Path = t;
 		}
 
 		private void wMain_KeyDown(object sender, KeyEventArgs e) {
@@ -136,6 +140,7 @@ namespace FreeMax_File_Manager.Windows {
 						if(aw.Drive == null)
 							return;
 						LbLeftPanel.Path = aw.Drive.FullName;
+						LbLeftPanel.MySelectedItem = 0;
 					}
 					if(Keyboard.IsKeyDown(Key.RightCtrl)) {
 						var aw = new AdditionalWindow {
@@ -154,6 +159,7 @@ namespace FreeMax_File_Manager.Windows {
 						if(aw.Drive == null)
 							return;
 						LbRightPanel.Path = aw.Drive.FullName;
+						LbRightPanel.MySelectedItem = 0;
 					}
 					break;
 				case Key.D3:
@@ -184,7 +190,7 @@ namespace FreeMax_File_Manager.Windows {
 									};
 		}
 
-		public static void SystemKeyDown(KeyEventArgs e) {
+		private static void SystemKeyDown(KeyEventArgs e) {
 			switch(e.SystemKey) {
 				case Key.F10:
 					Application.Current.Shutdown();

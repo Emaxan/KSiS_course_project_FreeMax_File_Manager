@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -57,22 +58,21 @@ namespace FreeMax_File_Manager.Windows {
 				if(value) {
 					_driveActive = true;
 					LbDrives.Visibility = Visibility.Visible;
-					_dr = DriveInfo.GetDrives();
+					_dr = DriveInfo.GetDrives().Where(dr=> dr.IsReady).ToArray();
 					_rb = new RadioButton[_dr.Length];
 					LbDrives.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto});
-					int j = 0;
-					for(var i = 0; i < _rb.Length; i++)
-						if(_dr[i].IsReady) {
-							LbDrives.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto});
-							_rb[j] = new RadioButton {
-														Content = $"{_dr[i].VolumeLabel} ({_dr[i].Name})",
-														Style = (Style) FindResource("Drives"),
-														Name = $"Drive{i}"
-													};
-							LbDrives.Children.Add(_rb[j]);
-							Grid.SetRow(_rb[j], j);
-							j++;
-						}
+					var j = 0;
+					for(var i = 0; i < _rb.Length; i++){
+						LbDrives.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto});
+						_rb[j] = new RadioButton {
+													Content = $"{_dr[i].VolumeLabel} ({_dr[i].Name})",
+													Style = (Style) FindResource("Drives"),
+													Name = $"Drive{i}"
+												};
+						LbDrives.Children.Add(_rb[j]);
+						Grid.SetRow(_rb[j], j);
+						j++;
+					}
 					_rb[0].IsChecked = true;
 					Drive = _dr[0].RootDirectory;
 				}
@@ -231,9 +231,15 @@ namespace FreeMax_File_Manager.Windows {
 		private void LbDrives_OnLostFocus(object sender, RoutedEventArgs e) { _driveActive = false; }
 
 		private void AdditionalWindow_OnClosed(object sender, EventArgs e) {
-			if(_creationFile) NewElem = new FileInfo(ElemName.FullName + '\\' + TbNewElem.Text);
-			if(_creationFolder) Drive = new DirectoryInfo(ElemName.FullName + '\\' + TbNewElem.Text);
-			if(_rename) NewName = TbRename.Text;
+			if(_creationFile) NewElem = new FileInfo(ElemName.FullName + '\\' + NewName);
+			if(_creationFolder) Drive = new DirectoryInfo(ElemName.FullName + '\\' + NewName);
+		}
+
+		private void TbNewElem_OnKeyUp(object sender, KeyEventArgs e) {
+			NewName = TbNewElem.Text.Where(
+				c =>
+				(c != '*') && (c != '|') && (c != '\\') && (c != ':') && (c != '"') && (c != '<') && (c != '>') && (c != '?') && (c != '/')).Aggregate("",(str, c) => str += c);
+			RealFileName.Content = NewName;
 		}
 	}
 }

@@ -139,7 +139,7 @@ namespace FreeMax_File_Manager {
 
 		private static FileElement[] GetFolderContent(MyFolderView view, string path) {
 			var dir = new DirectoryInfo(path);
-			var elems = dir.GetFileSystemInfos()//TODO Не работает с внешними устройствами
+			var elems = dir.GetFileSystemInfos()
 							.Where(f => ((f.Attributes&view._curAttributes) != 0 && (f.Attributes&view._curNegativeAttributes) == 0))
 							.OrderByDescending(f => (f.Attributes&FileAttributes.Directory) == FileAttributes.Directory)
 							.ThenBy(f => f.Name)

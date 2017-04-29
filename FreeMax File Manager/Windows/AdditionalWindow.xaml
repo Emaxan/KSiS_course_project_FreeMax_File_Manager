@@ -46,15 +46,19 @@
                  VerticalAlignment="Center"
                  Background="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Фон_текста, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         </Grid>
-        <TextBox Grid.Row="2" x:Name="TbNewElem" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Margin="10" Padding="10" FontSize="20"
+		<TextBox Grid.Row="2" x:Name="TbNewElem" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Margin="10 10 10 30" Padding="10" FontSize="20"
                  Foreground="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Background="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Фон_текста, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                 FontFamily="{Binding Source={x:Static awf:Fonts.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="2" x:Name="TbRename" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Margin="10" Padding="10" FontSize="20"
+                 FontFamily="{Binding Source={x:Static awf:Fonts.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+				 KeyUp="TbNewElem_OnKeyUp"/>
+        <TextBox Grid.Row="2" x:Name="TbRename" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Margin="10 10 10 30" Padding="10" FontSize="20"
                  Foreground="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Background="{Binding Source={x:Static awc:AdditionalWindowColors.Default}, Path=Фон_текста, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                 FontFamily="{Binding Source={x:Static awf:Fonts.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Grid Grid.Row="3">
+                 FontFamily="{Binding Source={x:Static awf:Fonts.Default}, Path=Текст, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+				 KeyUp="TbNewElem_OnKeyUp"/>
+		<Label Grid.Row="2" Margin="0 0 0 10" HorizontalAlignment="Left" VerticalAlignment="Bottom">Real file name:</Label>
+		<Label x:Name="RealFileName" Grid.Row="2" Margin="100 0 0 10" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Label>
+		<Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
