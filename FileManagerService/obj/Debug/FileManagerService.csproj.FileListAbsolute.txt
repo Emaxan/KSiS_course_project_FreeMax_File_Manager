@@ -1,0 +1,6 @@
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.exe.config
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.exe
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.pdb
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\obj\Debug\FileManagerService.csprojResolveAssemblyReference.cache
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\obj\Debug\FileManagerService.exe
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\obj\Debug\FileManagerService.pdb

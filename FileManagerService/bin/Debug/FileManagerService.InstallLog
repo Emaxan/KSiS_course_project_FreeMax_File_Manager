@@ -1,0 +1,21 @@
+﻿Выполняется установка сборки 'D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   assemblypath = D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.exe
+   logfile = D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.InstallLog
+Устанавливается служба FreeMaxService...
+Служба FreeMaxService успешно установлена.
+Создается исходный EventLog FreeMaxService в журнале Application...
+Выполняется фиксация сборки 'D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   assemblypath = D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.exe
+   logfile = D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.InstallLog
+Выполняется удаление сборки 'D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   assemblypath = D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.exe
+   logfile = D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FileManagerService.InstallLog
+Выполняется удаление источника EventLog FreeMaxService.
+Выполняется удаление службы FreeMaxService из системы...
+Служба FreeMaxService успешно удалена из системы.

@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Windows.Forms.VisualStyles;
 
 namespace FreeMax_File_Manager {
 	public class MyFileSystemWatcher: FileSystemWatcher {
