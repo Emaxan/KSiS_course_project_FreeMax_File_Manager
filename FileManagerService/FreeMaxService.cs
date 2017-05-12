@@ -1,8 +1,15 @@
-﻿using System.ServiceProcess;
+﻿using System;
+using System.Reflection;
+using System.ServiceProcess;
 using System.Threading;
+using Microsoft.Owin.Hosting;
 
 namespace FileManagerService {
     public partial class FreeMaxService: ServiceBase {
+        private readonly object _obj = new object();
+        private const string ServerUri = "http://*:13666";
+        private IDisposable SignalR { get; set; }
+
         public FreeMaxService() {
             InitializeComponent();
             CanStop = true;
@@ -10,27 +17,60 @@ namespace FileManagerService {
             AutoLog = true;
         }
 
-        protected override void OnStart(string[] args) {
-            //logger = new Logger();
-            //Thread loggerThread = new Thread(new ThreadStart(/*someFunc*/));
-            //loggerThread.Start();
+        private void StartServer()
+        {
+            try
+            {
+                SignalR = WebApp.Start(ServerUri);
+            }
+            catch (TargetInvocationException e)
+            {
+                Logger.RecordEntry("A server is already running at " + ServerUri + ' ' + e.Message + ' ' + e.InnerException);
+                return;
+            }
+            Logger.RecordEntry("Server started at " + ServerUri);
         }
 
-        protected override void OnStop() {
-            //logger.Stop();
-            //Thread.Sleep(1000);
+        public void OnDebug() {
+            OnStart(null);
         }
 
-        protected override void OnPause() {
-            //do smth
+        protected override void OnStart(string[] args)
+        {
+            lock(_obj) {
+                new Thread(StartServer).Start();
+            }
         }
 
-        protected override void OnContinue() {
-            //do smth     
+        protected override void OnStop()
+        {
+            lock(_obj) {
+                SignalR.Dispose();
+                Thread.Sleep(1000);
+            }
         }
 
-        protected override void OnShutdown() {
-            //do smth
+        protected override void OnPause()
+        {
+            lock(_obj) {
+                SignalR.Dispose();
+                Thread.Sleep(1000);
+            }
+        }
+
+        protected override void OnContinue()
+        {
+            lock(_obj) {
+                new Thread(StartServer).Start();
+            }
+        }
+
+        protected override void OnShutdown()
+        {
+            lock(_obj) {
+                SignalR.Dispose();
+                Thread.Sleep(1000);
+            }
         }
     }
 }

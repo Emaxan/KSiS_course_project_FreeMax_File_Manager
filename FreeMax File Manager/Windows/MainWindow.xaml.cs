@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
 using FreeMax_File_Manager.Properties;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace FreeMax_File_Manager.Windows {
 	/// <summary>
