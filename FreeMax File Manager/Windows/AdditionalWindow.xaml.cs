@@ -236,7 +236,7 @@ namespace FreeMax_File_Manager.Windows {
 		}
 
 		private void TbNewElem_OnKeyUp(object sender, KeyEventArgs e) {
-			NewName = TbNewElem.Text.Where(
+			NewName = ((TextBox)sender).Text.Where(
 				c =>
 				(c != '*') && (c != '|') && (c != '\\') && (c != ':') && (c != '"') && (c != '<') && (c != '>') && (c != '?') && (c != '/')).Aggregate("",(str, c) => str += c);
 			RealFileName.Content = NewName;

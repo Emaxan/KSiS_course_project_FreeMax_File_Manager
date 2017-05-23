@@ -3,7 +3,9 @@
                     xmlns:p="clr-namespace:FreeMax_File_Manager.Properties.UserSettings.Colors"
                     xmlns:mwf="clr-namespace:FreeMax_File_Manager.Properties.UserSettings.Text.MainWindow"
                     xmlns:swf="clr-namespace:FreeMax_File_Manager.Properties.UserSettings.Text.SettingsWindow"
-                    xmlns:awt="clr-namespace:FreeMax_File_Manager.Properties.UserSettings.Text.AdditionalWindow">
+                    xmlns:awt="clr-namespace:FreeMax_File_Manager.Properties.UserSettings.Text.AdditionalWindow"
+                    xmlns:freeMaxFileManager="clr-namespace:FreeMax_File_Manager"
+                    xmlns:generalClasses="clr-namespace:GeneralClasses;assembly=GeneralClasses">
 
     <!--Main Window-->
 
@@ -334,6 +336,7 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Focusable" Value="False"/>
+        <Setter Property="IsSelected" Value="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type generalClasses:StringElement}}}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">

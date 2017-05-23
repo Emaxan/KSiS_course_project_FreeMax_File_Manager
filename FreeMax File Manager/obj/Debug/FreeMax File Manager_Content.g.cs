@@ -8,6 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/jquery-3.1.1.intellisense.js")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/jquery-3.1.1.js")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/jquery-3.1.1.min.js")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/jquery-3.1.1.slim.js")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/jquery-3.1.1.slim.min.js")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/jquery.signalr-2.2.2.js")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("scripts/jquery.signalr-2.2.2.min.js")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("properties/resources/font/acquests.ttf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("properties/resources/font/adobemyungjostd-medium.otf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("properties/resources/font/adventur.ttf")]

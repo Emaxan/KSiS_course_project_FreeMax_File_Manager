@@ -46,6 +46,7 @@ namespace FileManagerService {
         {
             lock(_obj) {
                 SignalR.Dispose();
+                Logger.RecordEntry("Server stopped at " + ServerUri);
                 Thread.Sleep(1000);
             }
         }
@@ -54,6 +55,7 @@ namespace FileManagerService {
         {
             lock(_obj) {
                 SignalR.Dispose();
+                Logger.RecordEntry("Server stopped at " + ServerUri);
                 Thread.Sleep(1000);
             }
         }
@@ -69,6 +71,7 @@ namespace FileManagerService {
         {
             lock(_obj) {
                 SignalR.Dispose();
+                Logger.RecordEntry("Server stopped at " + ServerUri);
                 Thread.Sleep(1000);
             }
         }

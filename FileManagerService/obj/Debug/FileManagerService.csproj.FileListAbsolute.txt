@@ -26,3 +26,9 @@ D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin
 D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\Newtonsoft.Json.xml
 D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\Microsoft.Owin.Host.HttpListener.dll
 D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\Microsoft.Owin.Host.HttpListener.xml
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\GeneralClasses.dll
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\GeneralClasses.pdb
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FolderView.dll
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FolderView.pdb
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\Microsoft.AspNet.SignalR.Client.dll
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\Microsoft.AspNet.SignalR.Client.xml
