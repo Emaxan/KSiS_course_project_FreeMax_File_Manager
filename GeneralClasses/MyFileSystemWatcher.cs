@@ -2,8 +2,10 @@
 
 namespace GeneralClasses {
 	public class MyFileSystemWatcher: FileSystemWatcher {
-		public object SomeObject;
 		public MyFileSystemWatcher() { }
+
+	    public int attr;
+	    public int negAttr;
 
 		public MyFileSystemWatcher(string path)
 			: base(path) { }

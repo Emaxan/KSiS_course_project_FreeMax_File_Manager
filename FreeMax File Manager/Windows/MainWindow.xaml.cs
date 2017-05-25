@@ -21,18 +21,55 @@ namespace FreeMax_File_Manager.Windows {
     public partial class MainWindow {
         #region Form
 
-        public MainWindow() {
-            InitializeComponent();
-            var result = Task.Run(async ()=> await ConnectAsync($"http://127.0.0.1:13666/signalr")).GetAwaiter().GetResult();//TODO Change it
-            if(!result) {
-                MessageBox.Show(this, "Can't connect to the server");
-                Application.Current.Shutdown();
+        public MainWindow() { InitializeComponent(); }
+         
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e) {
+            var authenticated = false;
+            while(!authenticated) {
+                var aw = new AdditionalWindow {
+                                                               MyTitle = "Приветствую тебя, Пользователь.",
+                                                               Text = "Введи IP и авторизуйся.",
+                                                               Owner = this,
+                                                               VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel,
+                                                               Authentication = true
+                                                           };
+                aw.ShowDialog();
+                if(aw.Result == Results.Bad) {
+                    Application.Current.Shutdown();
+                    return;
+                }
+                var pas = aw.TbPassword.Password;
+                var name = aw.TbName.Text;
+                var ip = aw.TbIp.Text;
+                var dom = aw.TbDomain.Text;
+                var result =
+                    Task.Run(async () => await ConnectAsync($"http://{ip}:13666/signalr"))
+                        .GetAwaiter()
+                        .GetResult();
+                if(!result) {
+                    MessageBox.Show(this, "Can't connect to the server");
+                    continue;
+                }
+                authenticated =
+                    Task.Run(
+                        async () =>
+                        await HubProxy.Invoke<bool>("Authentication", name, dom, pas))
+                        .GetAwaiter()
+                        .GetResult();
+                if(authenticated) continue;
+                Connection.Stop();
+                aw = new AdditionalWindow {
+                                              MyTitle = "WrongData",
+                                              Text = "Cannot authenticate.",
+                                              Owner = this,
+                                              VisibleButtons = (int) Buttons.BtnOk
+                                          };
+                aw.ShowDialog();
             }
-            var authenticated = Task.Run(async ()=> await HubProxy.Invoke<bool>("Authentication", "emaxan1997@gmail.com", "MAX-WIN10-X64", "r8004846")).GetAwaiter().GetResult();
-            if(!authenticated) MessageBox.Show(this, "Wrong Data!");
-
             FileWork.MainWindow = this;
             FileWork.Proxy = HubProxy;
+            LbLeftPanel.Position = "left";
+            LbRightPanel.Position = "right";
             LbLeftPanel.Proxy = HubProxy;
             LbRightPanel.Proxy = HubProxy;
             LbLeftPanel.IsActive = true;
@@ -41,7 +78,12 @@ namespace FreeMax_File_Manager.Windows {
             (LbLeftPanel.Items[0] as ISelectable)?.Select();
             LbLeftPanel.Focus();
             (LbRightPanel.Items[0] as ISelectable)?.UnSelect();
+            HubProxy.Invoke("SetFileWatcher", LbLeftPanel.Path, "left", LbLeftPanel.CurAttributes, LbLeftPanel.CurNegativeAttributes);
+            HubProxy.Invoke("SetFileWatcher", LbRightPanel.Path, "right", LbRightPanel.CurAttributes, LbRightPanel.CurNegativeAttributes);
+            //Task.Run(async () => await HubProxy.Invoke<string>("DownloadFile")).GetAwaiter().GetResult();//TODO sending files
         }
+
+        public void Fnc(int i) { MessageBox.Show(i.ToString()); }
 
         private void wMain_KeyDown(object sender, KeyEventArgs e) {
             bool b = false;
@@ -51,15 +93,11 @@ namespace FreeMax_File_Manager.Windows {
                     b = true;
                     break;
                 case Key.F3:
-                    FileWork.CreateFolder(LbLeftPanel.IsActive
-                                              ? new FileInfo(LbLeftPanel.Path)
-                                              : new FileInfo(LbRightPanel.Path));
+                    FileWork.CreateFolder(new StringElement(LbLeftPanel.IsActive? LbLeftPanel.Path : LbRightPanel.Path));
                     b = true;
                     break;
                 case Key.F4:
-                    FileWork.CreateFile(LbLeftPanel.IsActive
-                                            ? new FileInfo(LbLeftPanel.Path)
-                                            : new FileInfo(LbRightPanel.Path));
+                    FileWork.CreateFile(new StringElement(LbLeftPanel.IsActive? LbLeftPanel.Path : LbRightPanel.Path));
                     b = true;
                     break;
                 case Key.F5:
@@ -111,10 +149,9 @@ namespace FreeMax_File_Manager.Windows {
                     UpProcess(LbLeftPanel.IsActive? LbLeftPanel : LbRightPanel);
                     break;
             }
-            if(b) {
-                LbLeftPanel.UpdateSource();
-                LbRightPanel.UpdateSource();
-            }
+            if(!b) return;
+            LbLeftPanel.UpdateSource();
+            LbRightPanel.UpdateSource();
         }
 
         private void wMain_KeyUp(object sender, KeyEventArgs e) {
@@ -130,10 +167,7 @@ namespace FreeMax_File_Manager.Windows {
                                                           Text = "Выберите атрибуты файлов для левого окна.",
                                                           Attributes = (int) LbLeftPanel.CurAttributes,
                                                           Owner = this,
-                                                          VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel,
-                                                          DriveSelection = false,
-                                                          ElemName = null,
-                                                          Rename = false
+                                                          VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel
                                                       };
                         aw.ShowDialog();
                         if(aw.Result == Results.Bad) return;
@@ -146,9 +180,7 @@ namespace FreeMax_File_Manager.Windows {
                                                           Attributes = (int) LbRightPanel.CurAttributes,
                                                           Owner = this,
                                                           VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel,
-                                                          DriveSelection = false,
-                                                          ElemName = null,
-                                                          Rename = false
+                                                          Proxy = HubProxy
                                                       };
                         aw.ShowDialog();
                         if(aw.Result == Results.Bad) return;
@@ -161,38 +193,34 @@ namespace FreeMax_File_Manager.Windows {
                         var aw = new AdditionalWindow {
                                                           MyTitle = "Левое окно.",
                                                           Text = "Выберите диск для левого окна.",
-                                                          Attributes = -1,
                                                           Owner = this,
                                                           VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel,
-                                                          DriveSelection = true,
-                                                          ElemName = null,
-                                                          Rename = false
+                                                          Proxy = HubProxy,
+                                                          DriveSelection = true
                                                       };
                         aw.ShowDialog();
                         if(aw.Result == Results.Bad)
                             return;
                         if(aw.Drive == null)
                             return;
-                        LbLeftPanel.Path = aw.Drive.FullName;
+                        LbLeftPanel.Path = aw.Drive.FullPath;
                         LbLeftPanel.MySelectedItem = 0;
                     }
                     if(Keyboard.IsKeyDown(Key.RightCtrl)) {
                         var aw = new AdditionalWindow {
                                                           MyTitle = "Правое окно.",
                                                           Text = "Выберите диск для правого окна.",
-                                                          Attributes = -1,
                                                           Owner = this,
                                                           VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel,
-                                                          DriveSelection = true,
-                                                          ElemName = null,
-                                                          Rename = false
+                                                          Proxy = HubProxy,
+                                                          DriveSelection = true
                                                       };
                         aw.ShowDialog();
                         if(aw.Result == Results.Bad)
                             return;
                         if(aw.Drive == null)
                             return;
-                        LbRightPanel.Path = aw.Drive.FullName;
+                        LbRightPanel.Path = aw.Drive.FullPath;
                         LbRightPanel.MySelectedItem = 0;
                     }
                     break;
@@ -278,25 +306,21 @@ namespace FreeMax_File_Manager.Windows {
 
         private void EnterProcess(MyFolderView panel) {
             try {
-                var fileSystemInfo = (StringElement) panel.Items[panel.MySelectedItem];
-                if(fileSystemInfo == null) return;
-                if(fileSystemInfo.IsDir) {
-                    panel.Path = fileSystemInfo.FullPath;
+                var element = (StringElement) panel.Items[panel.MySelectedItem];
+                if(element == null) return;
+                if(element.IsDir) {
+                    panel.Path = element.FullPath;
                     panel.MySelectedItem = 0;
                 }
                 else
-                    Process.Start(fileSystemInfo.FullPath);//TODO 
+                    Process.Start(element.FullPath);//TODO sending files
             }
             catch(UnauthorizedAccessException) {
                 var aw = new AdditionalWindow {
                                                   MyTitle = "Ошибка!",
                                                   Text = "Недостаточно прав доступа к элементу!",
                                                   Owner = this,
-                                                  Attributes = -1,
-                                                  VisibleButtons = (int) Buttons.BtnOk,
-                                                  DriveSelection = false,
-                                                  ElemName = null,
-                                                  Rename = false
+                                                  VisibleButtons = (int) Buttons.BtnOk
                                               };
                 aw.ShowDialog();
             }
@@ -349,10 +373,13 @@ namespace FreeMax_File_Manager.Windows {
         private async Task<bool> ConnectAsync(string serverUri) //URI is : $"http://{TbConnectionIp.Text}:13666/signalr"
         {
             Connection = new HubConnection(serverUri);
+            Connection.Closed += () => {
+                                     Connection.TraceWriter.Close();
+                                 };
             //Connection.Closed += () => MessageBox.Show("Server has closed connection.");
             Connection.Error += ex => {
                                     MessageBox.Show($"SignalR error: {ex.Message}");
-                                    new StreamWriter($"{Path.GetTempPath()}FreeMaxManager.log").Write(
+                                    new StreamWriter($"{Path.GetTempPath()}FreeMaxManagerError.log").Write(
                                         $"SignalR error: {ex.Message}");
                                 };
             Connection.TraceLevel = TraceLevels.All;
@@ -361,9 +388,16 @@ namespace FreeMax_File_Manager.Windows {
             ServicePointManager.DefaultConnectionLimit = 12;
             HubProxy = Connection.CreateHubProxy("MyHub");
             
-            HubProxy.On<string>("AddMessage", message => Dispatcher.Invoke(() => MessageBox.Show($"{message}\r")));
+            HubProxy.On<string>("Message", message => Dispatcher.Invoke(() => MessageBox.Show($"{message}\r")));
+            HubProxy.On<string, StringElement[]>("UpdateSourceForPanel",
+                (panel, elems) => {
+                    Dispatcher.Invoke(() => (panel == "left"
+                                                 ? LbLeftPanel
+                                                 : LbRightPanel).UpdateSource(elems));
+                });
 
-            try {
+            try
+            {
                 await Connection.Start();
             }
             catch(HttpRequestException) {

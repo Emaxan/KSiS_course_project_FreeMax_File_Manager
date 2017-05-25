@@ -32,3 +32,4 @@ D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin
 D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\FolderView.pdb
 D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\Microsoft.AspNet.SignalR.Client.dll
 D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\Microsoft.AspNet.SignalR.Client.xml
+D:\Programs\VS\kurs_proekt_2\FreeMax\FreeMax File Manager\FileManagerService\bin\Debug\advapi32.dll

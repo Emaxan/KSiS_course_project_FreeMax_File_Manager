@@ -1,28 +1,24 @@
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using FreeMax_File_Manager.Windows;
 using GeneralClasses;
 using Microsoft.AspNet.SignalR.Client;
 
-namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
+namespace FreeMax_File_Manager {
 
     public static class FileWork {
         public static Window MainWindow;
         public static IHubProxy Proxy;
 
-        public static void Rename(StringElement fileElement) {//TODO Нельзя перемещать между томами
+        public static void Rename(StringElement fileElement) {
             var name = fileElement.Name;
             if(name.StartsWith("(hidden)")) name = name.Substring(8, name.Length - 8);
             if(fileElement.IsDir) name = name.Substring(2, name.Length - 4);
             var aw = new AdditionalWindow {
                                               MyTitle = "Переименование.",
                                               Text = $"Введите новое имя для {name}.",
-                                              Attributes = -1,
                                               Owner = MainWindow,
                                               VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel,
-                                              DriveSelection = false,
-                                              ElemName = null,
                                               Rename = true
                                           };
 
@@ -45,12 +41,8 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
                                                        MyTitle = "Подтвердите действие.",
                                                        Text =
                                                            $"Папка {aw.NewName} существует. Хотите выполнить слияние?",
-                                                       Attributes = -1,
                                                        Owner = MainWindow,
-                                                       VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel,
-                                                       DriveSelection = false,
-                                                       ElemName = null,
-                                                       Rename = false
+                                                       VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel
                                                    };
                     aw1.ShowDialog();
                     if(aw1.Result == Results.Bad) return;
@@ -72,12 +64,8 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
                     var aw1 = new AdditionalWindow {
                                                        MyTitle = "Подтвердите действие.",
                                                        Text = $"Файл {aw.NewName} существует. Хотите её заменить?",
-                                                       Attributes = -1,
                                                        Owner = MainWindow,
-                                                       VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel,
-                                                       DriveSelection = false,
-                                                       ElemName = null,
-                                                       Rename = false
+                                                       VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel
                                                    };
                     aw1.ShowDialog();
                     if(aw1.Result == Results.Bad) return;
@@ -87,76 +75,62 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
             }
         }
 
-        public static void CreateFile(FileSystemInfo fileElement) {
+        public static void CreateFile(StringElement fileElement) {
             var aw = new AdditionalWindow {
                                               MyTitle = "Создание файла.",
                                               Text = "Введите имя файла(с расширением)!",
                                               Owner = MainWindow,
-                                              Attributes = -1,
                                               VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel,
-                                              DriveSelection = false,
-                                              ElemName = new DirectoryInfo(fileElement.FullName),
-                                              Rename = false
+                                              ElemName = new StringElement(fileElement.FullPath)
                                           };
             aw.ShowDialog();
             if(aw.Result == Results.Bad) return;
 
             if(
-                Task.Run(async () => await Proxy.Invoke<bool>("IsFileExist", aw.NewElem.FullName))
+                Task.Run(async () => await Proxy.Invoke<bool>("IsFileExist", aw.NewElem.FullPath))
                     .GetAwaiter()
                     .GetResult()) {
                 var aw1 = new AdditionalWindow {
                                                    MyTitle = "Подтвердите операцию.",
                                                    Text = $"Файл {aw.Drive.Name} существует. Хотите заменить его?",
                                                    Owner = MainWindow,
-                                                   Attributes = -1,
-                                                   VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo,
-                                                   DriveSelection = false,
-                                                   ElemName = null,
-                                                   Rename = false
+                                                   VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo
                                                };
                 aw1.ShowDialog();
                 if(aw1.Result == Results.Bad) return;
-                Task.Run(async () => await Proxy.Invoke("DeleteFile", aw.NewElem.FullName)).GetAwaiter().GetResult();
+                Task.Run(async () => await Proxy.Invoke("DeleteFile", aw.NewElem.FullPath)).GetAwaiter().GetResult();
             }
 
-            Task.Run(async () => await Proxy.Invoke("CreateFile", aw.NewElem.FullName)).GetAwaiter().GetResult();
+            Task.Run(async () => await Proxy.Invoke("CreateFile", aw.NewElem.FullPath)).GetAwaiter().GetResult();
         }
 
-        public static void CreateFolder(FileSystemInfo fileElement) {
+        public static void CreateFolder(StringElement fileElement) {
             var aw = new AdditionalWindow {
                                               MyTitle = "Создание папки.",
                                               Text = "Введите имя папки!",
                                               Owner = MainWindow,
-                                              Attributes = -1,
                                               VisibleButtons = (int) Buttons.BtnOk|(int) Buttons.BtnCancel,
-                                              DriveSelection = false,
-                                              ElemName = new DirectoryInfo(fileElement.FullName),
-                                              Rename = false
+                                              ElemName = new StringElement(fileElement.FullPath)
                                           };
             aw.ShowDialog();
             if(aw.Result == Results.Bad) return;
 
             if(
-                Task.Run(async () => await Proxy.Invoke<bool>("IsDirectoryExist", aw.Drive.FullName))
+                Task.Run(async () => await Proxy.Invoke<bool>("IsDirectoryExist", aw.Drive.FullPath))
                     .GetAwaiter()
                     .GetResult()) {
                 var aw1 = new AdditionalWindow {
                                                    MyTitle = "Подтвердите операцию.",
                                                    Text = $"Папка {aw.Drive.Name} существует. Хотите заменить её?",
                                                    Owner = MainWindow,
-                                                   Attributes = -1,
-                                                   VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo,
-                                                   DriveSelection = false,
-                                                   ElemName = null,
-                                                   Rename = false
+                                                   VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo
                                                };
                 aw1.ShowDialog();
                 if(aw.Result == Results.Bad) return;
-                Task.Run(async () => await Proxy.Invoke("DeleteDirectiry", aw.Drive.FullName)).GetAwaiter().GetResult();
+                Task.Run(async () => await Proxy.Invoke("DeleteDirectiry", aw.Drive.FullPath)).GetAwaiter().GetResult();
             }
 
-            Task.Run(async () => await Proxy.Invoke("CreateDirectory", aw.Drive.FullName)).GetAwaiter().GetResult();
+            Task.Run(async () => await Proxy.Invoke("CreateDirectory", aw.Drive.FullPath)).GetAwaiter().GetResult();
         }
 
         public static void DeleteElements(StringElement[] items) {
@@ -166,11 +140,7 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
                                               Owner = MainWindow,
                                               Text = $"Вы уверены, что хотите удалить {items.Length} элемент(-а,-ов)?",
                                               MyTitle = "Подтвердите операцию.",
-                                              VisibleButtons = (int) (Buttons.BtnYes|Buttons.BtnNo),
-                                              Attributes = -1,
-                                              DriveSelection = false,
-                                              ElemName = null,
-                                              Rename = false
+                                              VisibleButtons = (int) (Buttons.BtnYes|Buttons.BtnNo)
                                           };
             aw.ShowDialog();
 
@@ -193,11 +163,7 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
                                               Text =
                                                   $"Вы уверены, что хотите скопировать {items.Length} элемент(-а,-ов)?",
                                               MyTitle = "Подтвердите операцию.",
-                                              VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo,
-                                              Attributes = -1,
-                                              DriveSelection = false,
-                                              ElemName = null,
-                                              Rename = false
+                                              VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo
                                           };
             aw.ShowDialog();
             if(aw.Result == Results.Bad) return;
@@ -225,11 +191,7 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
                                                       MyTitle = "Подтвердите операцию.",
                                                       Text = $"Папка {dest} существует. Хотите выполнить слияние?",
                                                       VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo,
-                                                      Owner = MainWindow,
-                                                      Attributes = -1,
-                                                      DriveSelection = false,
-                                                      ElemName = null,
-                                                      Rename = false
+                                                      Owner = MainWindow
                                                   };
                     aw.ShowDialog();
                     if(aw.Result == Results.Bad) return;
@@ -252,11 +214,7 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
                                                       MyTitle = "Подтвердите операцию.",
                                                       Text = $"Файл {name} существует. Хотите заместить его?",
                                                       VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo,
-                                                      Owner = MainWindow,
-                                                      Attributes = -1,
-                                                      DriveSelection = false,
-                                                      ElemName = null,
-                                                      Rename = false
+                                                      Owner = MainWindow
                                                   };
                     aw.ShowDialog();
                     if(aw.Result == Results.Bad) return;
@@ -268,7 +226,7 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
         }
 
         public static void MoveElements(StringElement[] items, StringElement destination) {
-            //TODO Нельзя перемещать между томами
+            //TODO Нельзя перемещать папки между томами
             if(items.Length == 0) return;
 
             var aw = new AdditionalWindow {
@@ -276,11 +234,7 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
                                               Text =
                                                   $"Вы уверены, что хотите переместить {items.Length} элемент(-а,-ов)?",
                                               MyTitle = "Подтвердите операцию.",
-                                              VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo,
-                                              Attributes = -1,
-                                              DriveSelection = false,
-                                              ElemName = null,
-                                              Rename = false
+                                              VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo
                                           };
             aw.ShowDialog();
 
@@ -300,11 +254,7 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
                                                       MyTitle = "Подтвердите операцию.",
                                                       Text = $"Папка {name} существует. Хотите выполнить слияние?",
                                                       VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo,
-                                                      Owner = MainWindow,
-                                                      Attributes = -1,
-                                                      DriveSelection = false,
-                                                      ElemName = null,
-                                                      Rename = false
+                                                      Owner = MainWindow
                                                   };
                         aw.ShowDialog();
                         if(aw.Result == Results.Bad) return;
@@ -323,11 +273,7 @@ namespace FreeMax_File_Manager { //TODO ПРОТЕСТИТЬ ВСЕ ФУНКЦИИ И СМЕНУ АТРИБУТОВ
                                                       MyTitle = "Подтвердите операцию.",
                                                       Text = $"Файл {name} существует. Хотите заменить его?",
                                                       VisibleButtons = (int) Buttons.BtnYes|(int) Buttons.BtnNo,
-                                                      Owner = MainWindow,
-                                                      Attributes = -1,
-                                                      DriveSelection = false,
-                                                      ElemName = null,
-                                                      Rename = false
+                                                      Owner = MainWindow
                                                   };
                         aw.ShowDialog();
                         if(aw.Result == Results.Bad) return;

@@ -8,18 +8,58 @@ using GeneralClasses;
 using Microsoft.AspNet.SignalR;
 
 namespace FileManagerService {
-    public class PathChangetEventArgs: EventArgs {
-        public string NewPath;
-        public string OldPath;
+    public class MyPanel {
+        public string ConnectionId;
+        public string Panel;
     }
 
     public class MyHub: Hub {
-        public event EventHandler<PathChangetEventArgs> PathChanged;
+        private static Dictionary<MyFileSystemWatcher, MyPanel> FSWs = new Dictionary<MyFileSystemWatcher, MyPanel>(); 
 
         public override Task OnConnected() {
             Logger.RecordEntry($"Client connected. ConnectionID is: {Context.ConnectionId}.");
-
+            var left = new MyFileSystemWatcher();
+            left.Changed += (sender, args) => { FSWEvent(sender); };
+            left.Created += (sender, args) => { FSWEvent(sender); };
+            left.Deleted += (sender, args) => { FSWEvent(sender); };
+            left.Renamed += (sender, args) => { FSWEvent(sender); };
+            var right = new MyFileSystemWatcher();
+            right.Changed += (sender, args) => { FSWEvent(sender); };
+            right.Created += (sender, args) => { FSWEvent(sender); };
+            right.Deleted += (sender, args) => { FSWEvent(sender); };
+            right.Renamed += (sender, args) => { FSWEvent(sender); };
+            FSWs.Add(left, new MyPanel {ConnectionId = Context.ConnectionId, Panel = "left"});
+            FSWs.Add(right, new MyPanel {ConnectionId = Context.ConnectionId, Panel = "right"});
             return base.OnConnected();
+        }
+
+        public override Task OnDisconnected(bool stopCalled) {
+            Logger.RecordEntry(stopCalled
+                                   ? $"Client {Context.ConnectionId} explicitly closed the connection."
+                                   : $"Client {Context.ConnectionId} timed out .");
+
+            var watcher = FSWs.Where((pair => pair.Value.ConnectionId == Context.ConnectionId)).ToArray();
+            foreach(var pair in watcher) {
+                pair.Key.EnableRaisingEvents = false;
+                FSWs.Remove(pair.Key);
+            }
+
+            return base.OnDisconnected(stopCalled);
+        }
+
+        public override Task OnReconnected() {
+            Logger.RecordEntry($"Client reconnected. ConnectionID is: {Context.ConnectionId}.");
+            return base.OnReconnected();
+        }
+
+        private void FSWEvent(object sender) {
+            var watch = sender as MyFileSystemWatcher;
+            if (watch == null) return;
+            var elems = GetFolderContent(watch.attr, watch.negAttr, watch.Path)
+                .Split('|')
+                .Select(el => new StringElement(el.Split('*')));
+            Clients.Client(FSWs[watch].ConnectionId)
+                   .UpdateSourceForPanel(FSWs[watch].Panel, elems);
         }
 
         [DllImport("advapi32.dll")]
@@ -45,7 +85,7 @@ namespace FileManagerService {
                                                    ((f.Attributes&(FileAttributes) attr) != 0 &&
                                                     (f.Attributes&(FileAttributes) negAttr) == 0)).ToArray();
             if(!files.Any()) return null;
-            
+
             return files.OrderByDescending(
                 f => (f.Attributes&FileAttributes.Directory) == FileAttributes.Directory)
                         .ThenBy(f => f.Name)
@@ -62,59 +102,147 @@ namespace FileManagerService {
             return parent?.FullName ?? "null";
         }
 
-        public string GetDirectoryOfFile(string path) {
-            return new FileInfo(path).Directory?.FullName ?? "null";
+        public string GetDirectoryOfFile(string path) { return new FileInfo(path).Directory?.FullName ?? "null"; }
+
+        public string GetReadyDrives() {
+            var drives = DriveInfo.GetDrives().Where(dr => dr.IsReady).ToArray();
+            return drives.Select(
+                f => f.VolumeLabel + "*" + f.RootDirectory.FullName + "*1")
+                         .Aggregate((res, cur) => res + ("|" + cur));
         }
 
-        public bool IsDirectoryExist(string path) {
-            return new DirectoryInfo(path).Exists;
-        }
+        public bool IsDirectoryExist(string path) { return new DirectoryInfo(path).Exists; }
 
-        public void DeleteDirectory(string path) {
-            new DirectoryInfo(path).Delete(true);
-        }
-
-        public void CreateDirectory(string path) {
-            new DirectoryInfo(path).Create();
-        }
-
-        public void CopyDirectory(string item, string dest) {
-            foreach(var directoryInfo in new DirectoryInfo(item).GetDirectories())
-                CopyDirectory(directoryInfo.FullName, dest);
-            foreach(var file in new DirectoryInfo(item).GetFiles()) {
-                file.CopyTo(dest + '\\' + file.Name, true);
+        public bool DeleteDirectory(string path) {
+            try {
+                new DirectoryInfo(path).Delete(true);
+                return true;
+            }
+            catch(Exception e) {
+                Clients.Caller.Message(e.Message);
+                return false;
             }
         }
 
-        public void MoveDirectory(string item, string dest) {
-            new DirectoryInfo(item).MoveTo(dest);
+        public bool CreateDirectory(string path) {
+            try {
+                new DirectoryInfo(path).Create();
+                return true;
+            }
+            catch(Exception e) {
+                Clients.Caller.Message(e.Message);
+                return false;
+            }
         }
 
-        public bool IsFileExist(string path) {
-            return new FileInfo(path).Exists;
+        public bool CopyDirectory(string item, string dest) {
+            try {
+                foreach(var directoryInfo in new DirectoryInfo(item).GetDirectories())
+                    CopyDirectory(directoryInfo.FullName, dest);
+                foreach(var file in new DirectoryInfo(item).GetFiles()) {
+                    file.CopyTo(dest + '\\' + file.Name, true);
+                }
+                return true;
+            }
+            catch(Exception e) {
+                Clients.Caller.Message(e.Message);
+                return false;
+            }
         }
 
-        public void DeleteFile(string path) {
-            new FileInfo(path).Delete();
+        public bool MoveDirectory(string item, string dest) {
+            try {
+                new DirectoryInfo(item).MoveTo(dest);
+                return true;
+            }
+            catch(Exception e) {
+                Clients.Caller.Message(e.Message);
+                return false;
+            }
         }
 
-        public void CreateFile(string path) {
-            new FileInfo(path).Create();
+        public bool IsFileExist(string path) { return new FileInfo(path).Exists; }
+
+        public bool DeleteFile(string path) {
+            try {
+                new FileInfo(path).Delete();
+                return true;
+            }
+            catch(Exception e) {
+                Clients.Caller.Message(e.Message);
+                return false;
+            }
         }
 
-        public void CopyFile(string item, string dest) {
-            new FileInfo(item).CopyTo(dest, true);
+        public bool CreateFile(string path) {
+            try {
+                new FileInfo(path).Create();
+                return true;
+            }
+            catch(Exception e) {
+                Clients.Caller.Message(e.Message);
+                return false;
+            }
         }
 
-        public void MoveFile(string item, string dest){
-            new FileInfo(item).MoveTo(dest);
+        public bool CopyFile(string item, string dest) {
+            try {
+                new FileInfo(item).CopyTo(dest, true);
+                return true;
+            }
+            catch(Exception e) {
+                Clients.Caller.Message(e.Message);
+                return false;
+            }
         }
 
-        public bool SetFileWatcher(string path) { return true; }
+        public bool MoveFile(string item, string dest) {
+            try {
+                new FileInfo(item).MoveTo(dest);
+                return true;
+            }
+            catch(Exception e) {
+                Clients.Caller.Message(e.Message);
+                return false;
+            }
+        }
 
-        public bool RemoveFileWathcer(string path) { return true; }
+        public void SetFileWatcher(string path, string panel, int attr, int negattr) {
+            var watcher =
+                FSWs.Where((pair => (pair.Value.ConnectionId == Context.ConnectionId) && (pair.Value.Panel == panel))).ToArray();
+            if (watcher.Count() < 1) return;
+            watcher[0].Key.attr = attr;
+            watcher[0].Key.negAttr = negattr;
+            watcher[0].Key.Path = path;
+            watcher[0].Key.EnableRaisingEvents = true;
+        }
 
-        public bool ResetFileWatcher(string path) { return true; }
+        public void RemoveFileWathcer(string panel) {
+            var watcher =
+                FSWs.Where((pair => (pair.Value.ConnectionId == Context.ConnectionId) && (pair.Value.Panel == panel))).ToArray();
+            if (watcher.Count() < 1) return;
+            watcher[0].Key.EnableRaisingEvents = true;
+        }
+
+        public void ResetFileWatcher(string path, string panel, int attr, int negattr) {
+            var watcher =
+                FSWs.Where((pair => (pair.Value.ConnectionId == Context.ConnectionId) && (pair.Value.Panel == panel))).ToArray();
+            if(watcher.Count()<1) return;
+            watcher[0].Key.attr = attr;
+            watcher[0].Key.negAttr = negattr;
+            watcher[0].Key.EnableRaisingEvents = false;
+            watcher[0].Key.Path = path;
+            watcher[0].Key.EnableRaisingEvents = true;
+        }
+
+        //public async Task<string> DownloadFile(IProgress<int> progress) {
+        //    for (var i = 0; i <= 100; i += 1)
+        //    {
+        //        await Task.Delay(200);
+        //        progress.Report(i);
+        //    }
+        //    return "Job complete!";
+        //}
 
         /* TODO Sample of progress reporting
         public async Task<string> DoLongRunningThing(IProgress<int> progress){
@@ -124,18 +252,5 @@ namespace FileManagerService {
             }
             return "Job complete!";
         }*/
-
-        public override Task OnDisconnected(bool stopCalled) {
-            Logger.RecordEntry(stopCalled
-                                   ? $"Client {Context.ConnectionId} explicitly closed the connection."
-                                   : $"Client {Context.ConnectionId} timed out .");
-
-            return base.OnDisconnected(stopCalled);
-        }
-
-        public override Task OnReconnected() {
-            Logger.RecordEntry($"Client reconnected. ConnectionID is: {Context.ConnectionId}.");
-            return base.OnReconnected();
-        }
     }
 }

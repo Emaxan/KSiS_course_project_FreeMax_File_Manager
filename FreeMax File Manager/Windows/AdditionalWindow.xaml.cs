@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using GeneralClasses;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace FreeMax_File_Manager.Windows {
 	[Flags]
@@ -23,31 +26,42 @@ namespace FreeMax_File_Manager.Windows {
 	///     Логика взаимодействия для AdditionalWindow.xaml
 	/// </summary>
 	public partial class AdditionalWindow {
-		private bool _attrActive, _driveSelection, _driveActive, _creationFile, _creationFolder, _rename;
+		private bool _attrActive, _driveSelection, _driveActive, _creationFile, _creationFolder, _rename, _authentication;
 		private int _attributes, _visibleButtons;
 
-		private DriveInfo[] _dr;
-		private DirectoryInfo _elemName;
+		private StringElement[] _dr;
+		private StringElement _elemName;
 		private RadioButton[] _rb;
 		private string _title = string.Empty, _text = string.Empty;
-		public DirectoryInfo Drive;
-		public FileInfo NewElem;
+		public StringElement Drive;
+		public StringElement NewElem;
 		public string NewName;
+	    public IHubProxy Proxy;
 
 		public Results Result = Results.Bad;
 
 		public AdditionalWindow() { InitializeComponent(); }
 
-		public bool Rename {
+	    public bool Authentication {
+	        get { return _authentication; }
+	        set {
+	            _authentication = value;
+	            GAuthentication.Visibility = value? Visibility.Visible : Visibility.Collapsed;
+	        }
+	    }
+
+	    public bool Rename {
 			get { return _rename; }
 			set {
 				_rename = value;
 				if(value) {
 					TbRename.Visibility = Visibility.Visible;
+                    RealFileNameLabel.Visibility = Visibility.Visible;
 					TbRename.Focus();
 				}
 				else
 					TbRename.Visibility = Visibility.Collapsed;
+                    
 			}
 		}
 
@@ -57,33 +71,34 @@ namespace FreeMax_File_Manager.Windows {
 				_driveSelection = value;
 				if(value) {
 					_driveActive = true;
-					LbDrives.Visibility = Visibility.Visible;
-					_dr = DriveInfo.GetDrives().Where(dr=> dr.IsReady).ToArray();
-					_rb = new RadioButton[_dr.Length];
-					LbDrives.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto});
+					GDrives.Visibility = Visibility.Visible;
+				    var combine = Task.Run(async () => await Proxy.Invoke<string>("GetReadyDrives")).GetAwaiter().GetResult();
+					_dr = combine.Split('|').Select(file => new StringElement(file.Split('*'))).ToArray();
+                    _rb = new RadioButton[_dr.Length];
+					GDrives.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto});
 					var j = 0;
 					for(var i = 0; i < _rb.Length; i++){
-						LbDrives.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto});
+						GDrives.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto});
 						_rb[j] = new RadioButton {
-													Content = $"{_dr[i].VolumeLabel} ({_dr[i].Name})",
+													Content = $"{_dr[i].Name} ({_dr[i].FullPath})",
 													Style = (Style) FindResource("Drives"),
 													Name = $"Drive{i}"
 												};
-						LbDrives.Children.Add(_rb[j]);
+						GDrives.Children.Add(_rb[j]);
 						Grid.SetRow(_rb[j], j);
 						j++;
 					}
 					_rb[0].IsChecked = true;
-					Drive = _dr[0].RootDirectory;
+					Drive = new StringElement(_dr[0].FullPath);
 				}
 				else {
 					_driveActive = false;
-					LbDrives.Visibility = Visibility.Collapsed;
+					GDrives.Visibility = Visibility.Collapsed;
 				}
 			}
 		}
 
-		public DirectoryInfo ElemName {
+		public StringElement ElemName {
 			get { return _elemName; }
 			set {
 				_elemName = value;
@@ -91,6 +106,7 @@ namespace FreeMax_File_Manager.Windows {
 					_creationFile = true;
 					_creationFolder = true;
 					TbNewElem.Visibility = Visibility.Visible;
+                    RealFileNameLabel.Visibility = Visibility.Visible;
 					TbNewElem.Focus();
 				}
 				else {
@@ -106,10 +122,12 @@ namespace FreeMax_File_Manager.Windows {
 			set {
 				_attributes = value;
 				if(value == -1) {
-					LbAttributes.Visibility = Visibility.Collapsed;
+                    _attrActive = false;
+                    LbAttributes.Visibility = Visibility.Collapsed;
 					return;
 				}
-				LbAttributes.Visibility = Visibility.Visible;
+                _attrActive = true;
+                LbAttributes.Visibility = Visibility.Visible;
 				((CheckBox) LbAttributes.Items[0]).IsChecked = (value&(int) FileAttributes.System) == (int) FileAttributes.System;
 				((CheckBox) LbAttributes.Items[1]).IsChecked = (value&(int) FileAttributes.Temporary) ==
 																(int) FileAttributes.Temporary;
@@ -150,7 +168,11 @@ namespace FreeMax_File_Manager.Windows {
 			}
 		}
 
-		private void OnKeyUp(object sender, KeyEventArgs e) {
+	    public int Progress {
+	        set { Text = value.ToString(); }
+	    }
+
+	    private void OnKeyUp(object sender, KeyEventArgs e) {
 			switch(e.Key) {
 				case Key.Enter:
 					Result = Results.Ok;
@@ -202,8 +224,8 @@ namespace FreeMax_File_Manager.Windows {
 								radioButton.IsChecked = false;
 								break;
 							}
-						_rb[(number + 1)%LbDrives.Children.Count].IsChecked = true;
-						Drive = _dr[(number + 1)%LbDrives.Children.Count].RootDirectory;
+						_rb[(number + 1)%GDrives.Children.Count].IsChecked = true;
+						Drive = new StringElement(_dr[(number + 1)%GDrives.Children.Count].FullPath);
 					}
 					break;
 				case Key.Up:
@@ -215,30 +237,22 @@ namespace FreeMax_File_Manager.Windows {
 								radioButton.IsChecked = false;
 								break;
 							}
-						_rb[(number - 1 + LbDrives.Children.Count)%LbDrives.Children.Count].IsChecked = true;
-						Drive = _dr[(number - 1 + LbDrives.Children.Count)%LbDrives.Children.Count].RootDirectory;
+						_rb[(number - 1 + GDrives.Children.Count)%GDrives.Children.Count].IsChecked = true;
+						Drive = new StringElement(_dr[(number - 1 + GDrives.Children.Count)%GDrives.Children.Count].FullPath);
 					}
 					break;
 			}
 		}
 
-		private void LbAttributes_OnGotFocus(object sender, RoutedEventArgs e) { _attrActive = true; }
-
-		private void LbAttributes_OnLostFocus(object sender, RoutedEventArgs e) { _attrActive = false; }
-
-		private void LbDrives_OnGotFocus(object sender, RoutedEventArgs e) { _driveActive = true; }
-
-		private void LbDrives_OnLostFocus(object sender, RoutedEventArgs e) { _driveActive = false; }
-
 		private void AdditionalWindow_OnClosed(object sender, EventArgs e) {
-			if(_creationFile) NewElem = new FileInfo(ElemName.FullName + '\\' + NewName);
-			if(_creationFolder) Drive = new DirectoryInfo(ElemName.FullName + '\\' + NewName);
+			if(_creationFile) NewElem = new StringElement(ElemName.FullPath + '\\' + NewName);
+			if(_creationFolder) Drive = new StringElement(ElemName.FullPath + '\\' + NewName);
 		}
 
 		private void TbNewElem_OnKeyUp(object sender, KeyEventArgs e) {
 			NewName = ((TextBox)sender).Text.Where(
 				c =>
-				(c != '*') && (c != '|') && (c != '\\') && (c != ':') && (c != '"') && (c != '<') && (c != '>') && (c != '?') && (c != '/')).Aggregate("",(str, c) => str += c);
+				(c != '*') && (c != '|') && (c != '\\') && (c != ':') && (c != '"') && (c != '<') && (c != '>') && (c != '?') && (c != '/')).Aggregate("",(str, c) => str + c);
 			RealFileName.Content = NewName;
 		}
 	}

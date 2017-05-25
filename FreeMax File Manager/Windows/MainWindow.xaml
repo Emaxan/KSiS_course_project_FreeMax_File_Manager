@@ -19,7 +19,8 @@
         KeyUp="wMain_KeyUp"
         KeyDown="wMain_KeyDown"
 		Activated="WMain_Activated" 
-        Deactivated="WMain_Deactivated">
+        Deactivated="WMain_Deactivated"
+        Loaded="MainWindow_OnLoaded">
 	<Window.Effect>
         <BlurEffect KernelType="Gaussian" Radius="0"/>
     </Window.Effect>

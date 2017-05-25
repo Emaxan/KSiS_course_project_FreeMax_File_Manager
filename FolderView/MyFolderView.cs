@@ -45,12 +45,12 @@ namespace FolderView {
         #endregion
         /*_______________________________________FIELDS_______________________________________________________________________________*/
         #region Fields
-        private static MyFileSystemWatcher _watcher;
         private FileAttributes _curAttributes;
         private FileAttributes _curNegativeAttributes;
         private bool _isActive, _notUpdateView = false;
         private int _mySelectedItem;
         public IHubProxy Proxy;
+        public string Position;
         #endregion
         /*________________________________________________PROPERTIES______________________________________________________________________*/
         #region Properties
@@ -137,15 +137,13 @@ namespace FolderView {
 
         private static void OnPathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             var files = GetFolderContent((MyFolderView)d, (string)e.NewValue, ((MyFolderView)d).Proxy);
-            //if(files == null) return;
             ((MyFolderView) d).ItemsSource = files;
-            /*_watcher?.Stop();//TODO Make FileWatcher
-            _watcher = new MyFileSystemWatcher((string) e.NewValue) {SomeObject = d};
-            _watcher.Changed += _watcher_Event;
-            _watcher.Created += _watcher_Event;
-            _watcher.Deleted += _watcher_Event;
-            _watcher.Renamed += _watcher_Event;
-            _watcher.Start();*/
+            if(((MyFolderView) d).Proxy == null) return;
+            var path = (string) e.NewValue;
+            var pos = ((MyFolderView) d).Position;
+            var attr = ((MyFolderView) d).CurAttributes;
+            var negAttr = ((MyFolderView) d).CurNegativeAttributes;
+            Task.Run(async () => await ((MyFolderView) d).Proxy.Invoke("ResetFileWatcher", path, pos, attr, negAttr));
         }
 
         private static object CoerceAttributes(DependencyObject d, object value) {
@@ -183,14 +181,9 @@ namespace FolderView {
             var curA = (int) view.CurAttributes;
             var curNa = (int) view.CurNegativeAttributes;
             var pathn = view.Path;
-            var combine = Task.Run(()=>proxy.Invoke<string>("GetFolderContent", curA, curNa, pathn)).GetAwaiter().GetResult();
+            var combine = Task.Run(async ()=> await proxy.Invoke<string>("GetFolderContent", curA, curNa, pathn)).GetAwaiter().GetResult();
             var files = combine?.Split('|').Select(f => new StringElement(f.Split('*')));
             return files;
-        }
-
-        private static void _watcher_Event(object sender, FileSystemEventArgs e) {
-            Application.Current.Dispatcher.Invoke(
-                () => ((sender as MyFileSystemWatcher)?.SomeObject as MyFolderView)?.UpdateSource());
         }
 
         public void UpdateView() {
@@ -216,6 +209,20 @@ namespace FolderView {
             }
             ScrollIntoView(Items[MySelectedItem]);
             if(IsActive)
+                (Items[MySelectedItem] as ISelectable)?.Select();
+            UpdateView();
+        }
+
+        public void UpdateSource(StringElement[] elems)
+        {
+            ItemsSource = elems;
+            if (Items.Count == 0) return;
+            if (MySelectedItem >= Items.Count)
+            {
+                MySelectedItem %= Items.Count;
+            }
+            ScrollIntoView(Items[MySelectedItem]);
+            if (IsActive)
                 (Items[MySelectedItem] as ISelectable)?.Select();
             UpdateView();
         }
